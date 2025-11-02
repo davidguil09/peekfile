@@ -7,7 +7,16 @@ if [[ -z $nlines ]]; then
   nlines=3
 fi
 
-head -n "$nlines" "$file"
-echo ...
-tail -n "$nlines" "$file"
+if [[ $(cat $file | wc -l) -le $((2*$nlines)) ]]; then
+	cat $file
+else
+	echo "This file is longer than $(($nlines*2)) lines"
+	head -n "$nlines" "$file"
+	echo ...
+	tail -n "$nlines" "$file" 
+fi
+
+
+
+
 
